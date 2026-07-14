@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+ARCHITIES 2026 Scanner
+</title>
+
+
+<!-- QR Scanner Library -->
+<script src="https://unpkg.com/html5-qrcode"></script>
+
+
+<link rel="stylesheet" href="style.css">
+
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+<header>
+
+<h1>
+ARCHITIES 2026
+</h1>
+
+<p>
+CHECK-IN SCANNER
+</p>
+
+</header>
+
+
+
+<div id="loginBox">
+
+
+<h2>
+PIN PANITIA
+</h2>
+
+
+<input 
+id="pin"
+type="password"
+placeholder="Masukkan PIN">
+
+
+<button onclick="login()">
+MASUK
+</button>
+
+
+</div>
+
+
+
+
+
+<div id="scannerBox"
+style="display:none;">
+
+
+
+<div id="reader"></div>
+
+
+
+<div id="status"
+class="waiting">
+
+Menunggu Scan...
+
+</div>
+
+
+
+<div class="info">
+
+
+<div>
+
+<h3>
+Hadir
+</h3>
+
+
+<span id="hadir">0</span>
+/
+<span id="total">0</span>
+
+
+</div>
+
+<div class="progress">
+
+    <div id="progressBar"></div>
+
+</div>
+
+<p id="persen">0%</p>
+
+<div>
+
+<h3>
+Scan terakhir
+</h3>
+
+
+<span id="last">
+-
+</span>
+
+
+</div>
+
+
+</div>
+
+
+
+<button onclick="aktifkanFlash()"
+id="flash">
+
+🔦 Flash
+
+</button>
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<script src="app.js"></script>
+
+
+</body>
+
+</html>
