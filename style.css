@@ -216,7 +216,25 @@ PROGRESS
 
 }
 
+background-size:200% 100%;
 
+animation:progressMove 3s linear infinite;
+
+@keyframes progressMove{
+
+    from{
+
+        background-position:0 0;
+
+    }
+
+    to{
+
+        background-position:200% 0;
+
+    }
+
+}
 
 
 #persen{
@@ -837,6 +855,10 @@ SCANNER CARD
 
 #reader{
 
+    position:relative;
+
+    z-index:1;
+    
     width:100% !important;
 
     max-width:460px;
@@ -855,6 +877,17 @@ SCANNER CARD
 
 }
 
+#reader{
+
+    position:relative;
+
+    border:2px solid rgba(245,171,36,.25);
+
+    box-shadow:
+        inset 0 0 20px rgba(245,171,36,.08),
+        0 0 20px rgba(0,0,0,.25);
+
+}
 
 /* VIDEO CAMERA */
 
@@ -1048,12 +1081,17 @@ SCANNER CARD
 
 .scanner-info span{
 
-    font-size:25px;
+    display:block;
 
-    margin-top:8px;
+    margin-top:10px;
+
+    font-size:32px;
+
+    font-weight:800;
+
+    color:#F5AB24;
 
 }
-
 
 
 
@@ -1099,7 +1137,11 @@ SCANNER CARD
 
 }
 
+#flash:active{
 
+    transform:scale(.98);
+
+}
 
 /* MOBILE */
 
@@ -1146,12 +1188,144 @@ SCANNER CARD
 
     display:block;
 
-    font-size:18px;
+    margin-top:8px;
+
+    font-size:22px;
+
+    font-weight:700;
+
+    color:#ffffff;
 
     white-space:nowrap;
 
     overflow:hidden;
 
     text-overflow:ellipsis;
+
+}
+
+/* =========================
+SCANNER FRAME
+========================= */
+
+.scanner-frame{
+
+    position:relative;
+
+    width:100%;
+
+    max-width:460px;
+
+    margin:auto;
+
+}
+
+.corner{
+
+    position:absolute;
+
+    width:35px;
+
+    height:35px;
+
+    border-color:#F5AB24;
+
+    border-style:solid;
+
+    z-index:20;
+
+}
+
+.tl{
+
+    top:10px;
+
+    left:10px;
+
+    border-width:4px 0 0 4px;
+
+}
+
+.tr{
+
+    top:10px;
+
+    right:10px;
+
+    border-width:4px 4px 0 0;
+
+}
+
+.bl{
+
+    bottom:10px;
+
+    left:10px;
+
+    border-width:0 0 4px 4px;
+
+}
+
+.br{
+
+    bottom:10px;
+
+    right:10px;
+
+    border-width:0 4px 4px 0;
+
+}
+
+.scan-line{
+
+    position:absolute;
+
+    left:20px;
+
+    right:20px;
+
+    top:20px;
+
+    height:3px;
+
+    border-radius:10px;
+
+    background:
+
+    linear-gradient(
+        90deg,
+        transparent,
+        #F5AB24,
+        transparent
+    );
+
+    box-shadow:
+        0 0 10px #F5AB24;
+
+    animation:scanMove 2.2s linear infinite;
+
+    z-index:15;
+
+}
+
+@keyframes scanMove{
+
+    0%{
+
+        top:25px;
+
+    }
+
+    50%{
+
+        top:50%;
+
+    }
+
+    100%{
+
+        top:calc(100% - 25px);
+
+    }
 
 }
