@@ -915,9 +915,7 @@ SCANNER CARD
 
     display:grid;
 
-    grid-template-columns:
-
-    repeat(3,1fr);
+    grid-template-columns:repeat(2,1fr);
 
     gap:15px;
 
@@ -1012,7 +1010,7 @@ SCANNER CARD
 
 .scanner-info{
 
-    grid-template-columns:1fr;
+    grid-template-columns:repeat(2,1fr);
 
 }
 
@@ -1024,5 +1022,23 @@ SCANNER CARD
 
 }
 
+
+}
+
+.last-scan{
+
+    grid-column:1 / -1;
+
+}
+
+.last-scan span{
+
+    font-size:18px;
+
+    white-space:nowrap;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
 
 }
