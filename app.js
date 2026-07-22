@@ -76,11 +76,15 @@ setTimeout(()=>{
             document.getElementById("loginBox")
             .style.display="none";
 
-            document.getElementById("scannerBox")
-            .style.display="block";
+            const scanner =
+document.getElementById("scannerBox");
 
-            mulaiScanner();
+scanner.style.display="block";
 
+scanner.classList.add("show-scanner");
+
+mulaiScanner();
+            
         },500);
 
     },500);
