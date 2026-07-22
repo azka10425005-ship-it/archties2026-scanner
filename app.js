@@ -107,8 +107,7 @@ return;
 
 
 const camera =
-cameras[cameras.length-1].id;
-
+cameras[0].id;
 
 
 
@@ -146,10 +145,10 @@ loadDashboard();
 
 catch(err){
 
-console.error(err);
+console.error("Scanner Error:", err);
 
 alert(
-"Gagal membuka kamera"
+"Kamera gagal dibuka\n\n" + err
 );
 
 }
