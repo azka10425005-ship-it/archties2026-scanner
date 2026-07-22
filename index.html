@@ -85,7 +85,8 @@ LOGIN PANITIA
         id="pin"
         type="password"
         placeholder="Masukkan PIN"
-        autocomplete="off">
+        autocomplete="off"
+        onkeydown="if(event.key==='Enter') login()">" 
 
     <span
         id="togglePin"
