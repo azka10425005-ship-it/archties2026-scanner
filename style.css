@@ -1722,3 +1722,47 @@ LOGIN PANITIA
     }
 
 }
+
+/* =========================
+PIN WRAPPER
+========================= */
+
+.pin-wrapper{
+
+    position:relative;
+
+    margin-bottom:20px;
+
+}
+
+.pin-wrapper input{
+
+    padding-right:55px;
+
+}
+
+#togglePin{
+
+    position:absolute;
+
+    right:18px;
+
+    top:50%;
+
+    transform:translateY(-50%);
+
+    cursor:pointer;
+
+    font-size:20px;
+
+    user-select:none;
+
+    transition:.2s;
+
+}
+
+#togglePin:hover{
+
+    transform:translateY(-50%) scale(1.15);
+
+}
