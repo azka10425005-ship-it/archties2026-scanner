@@ -493,3 +493,21 @@ header h1{
 }
 
 }
+
+/* ==========================
+   TANGGAL & JAM
+========================== */
+
+.tanggal{
+    font-size:12px;
+    color:#bdbdbd;
+    margin-bottom:4px;
+    white-space:nowrap;
+}
+
+.jam{
+    font-size:15px;
+    font-weight:700;
+    color:#ffffff;
+    white-space:nowrap;
+}
