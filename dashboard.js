@@ -36,7 +36,85 @@ async function loadDashboard(){
     console.error("Dashboard Error:", err);
     }
 }
+async function loadAttendance(){
+
+    try{
+
+        const res = await fetch(
+            API_URL + "?action=attendance"
+        );
+
+        const data = await res.json();
+
+        const tbody =
+            document.getElementById("attendanceBody");
+
+        const keyword =
+            document.getElementById("search")
+            .value
+            .toLowerCase();
+
+        tbody.innerHTML = "";
+
+        const hasil = data.filter(p =>
+
+            p.nama.toLowerCase().includes(keyword) ||
+
+            p.id.toLowerCase().includes(keyword)
+
+        );
+
+        if(hasil.length == 0){
+
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="4">
+                        Tidak ada peserta ditemukan
+                    </td>
+                </tr>
+            `;
+
+            return;
+        }
+
+        hasil.reverse();
+
+        hasil.forEach((p,index)=>{
+
+            tbody.innerHTML += `
+                <tr>
+
+                    <td>${index+1}</td>
+
+                    <td>${p.id}</td>
+
+                    <td>${p.nama}</td>
+
+                    <td>${p.waktu}</td>
+
+                </tr>
+            `;
+
+        });
+
+    }catch(err){
+
+        console.error(err);
+
+    }
+
+}
 
 loadDashboard();
+loadAttendance();
 
-setInterval(loadDashboard,5000);
+setInterval(()=>{
+
+    loadDashboard();
+    loadAttendance();
+
+},5000);
+
+document
+.getElementById("search")
+.addEventListener("input",loadAttendance);
