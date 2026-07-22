@@ -64,50 +64,82 @@
      DAFTAR PESERTA HADIR
 ========================= -->
 
-<div class="attendance-card">
+<div class="dashboard-grid">
 
-    <div class="attendance-header">
+    <!-- ==========================
+         DAFTAR PESERTA
+    ========================== -->
 
-        <h2>👥 Peserta Hadir</h2>
+    <div class="attendance-card">
 
-        <input
-            type="text"
-            id="search"
-            placeholder="Cari nama atau ID..."
-        >
+        <div class="attendance-header">
+
+            <h2>👥 Peserta Hadir</h2>
+
+            <input
+                type="text"
+                id="search"
+                placeholder="Cari nama atau ID..."
+            >
+
+        </div>
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>No</th>
+                    <th>ID</th>
+                    <th>Nama</th>
+                    <th>Check In</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="attendanceBody">
+
+                <tr>
+
+                    <td colspan="4">
+                        Belum ada peserta hadir
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
 
     </div>
 
-    <table>
+    <!-- ==========================
+         LIVE ACTIVITY
+    ========================== -->
 
-        <thead>
+    <div class="activity-card">
 
-            <tr>
+        <h2>🟢 Aktivitas Terbaru</h2>
 
-                <th>No</th>
-                <th>ID</th>
-                <th>Nama</th>
-                <th>Jam</th>
+        <div id="activityFeed">
 
-            </tr>
+            <div class="activity-empty">
 
-        </thead>
+                Belum ada aktivitas
 
-        <tbody id="attendanceBody">
+            </div>
 
-            <tr>
+        </div>
 
-                <td colspan="4">
-                    Belum ada peserta hadir
-                </td>
-
-            </tr>
-
-        </tbody>
-
-    </table>
+    </div>
 
 </div>
+
+<!-- Toast Notification -->
+
+<div id="toast"></div>
 
 </div>
 
