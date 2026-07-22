@@ -214,7 +214,7 @@ PROGRESS
 
 
 
-#scannerProgressBar{
+#progressBar{
 
     width:0%;
 
@@ -230,11 +230,12 @@ PROGRESS
 
     transition:width .5s ease;
 
+    background-size:200% 100%;
+
+    animation:progressMove 3s linear infinite;
 }
 
-background-size:200% 100%;
 
-animation:progressMove 3s linear infinite;
 
 @keyframes progressMove{
 
