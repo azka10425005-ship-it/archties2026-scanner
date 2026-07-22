@@ -200,7 +200,7 @@ setInterval(()=>{
     loadDashboard();
     loadAttendance();
 
-},2000);
+},5000);
 
 document
 .getElementById("search")
