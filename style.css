@@ -1528,3 +1528,197 @@ COUNT ANIMATION
     }
 
 }
+
+/* =========================
+LOGIN PANITIA
+========================= */
+
+#loginBox{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    margin:50px auto;
+
+}
+
+.login-card{
+
+    width:100%;
+    max-width:420px;
+
+    background:#222;
+
+    padding:35px;
+
+    border-radius:24px;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    box-shadow:
+        0 20px 50px rgba(0,0,0,.45);
+
+    text-align:center;
+
+}
+
+.login-icon{
+
+    width:80px;
+    height:80px;
+
+    margin:0 auto 20px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    font-size:38px;
+
+    border-radius:50%;
+
+    background:linear-gradient(
+        135deg,
+        #223A70,
+        #34579B
+    );
+
+    box-shadow:
+        0 0 20px rgba(34,58,112,.4);
+
+}
+
+.login-card h2{
+
+    margin:0;
+
+    font-size:30px;
+
+    color:#F5AB24;
+
+}
+
+.login-card p{
+
+    margin:15px 0 30px;
+
+    color:#bbb;
+
+    line-height:1.6;
+
+    font-size:15px;
+
+}
+
+.login-card input{
+
+    width:100%;
+
+    padding:16px 20px;
+
+    border-radius:14px;
+
+    border:2px solid transparent;
+
+    background:#2d2d2d;
+
+    color:#fff;
+
+    font-size:17px;
+
+    text-align:center;
+
+    transition:.25s;
+
+}
+
+.login-card input::placeholder{
+
+    color:#888;
+
+}
+
+.login-card input:focus{
+
+    outline:none;
+
+    border-color:#F5AB24;
+
+    background:#333;
+
+}
+
+.login-card button{
+
+    width:100%;
+
+    margin-top:20px;
+
+    padding:16px;
+
+    border:none;
+
+    border-radius:14px;
+
+    cursor:pointer;
+
+    font-size:17px;
+
+    font-weight:bold;
+
+    color:#111;
+
+    background:linear-gradient(
+        135deg,
+        #FFD54F,
+        #F5AB24
+    );
+
+    transition:.25s;
+
+}
+
+.login-card button:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 10px 25px rgba(245,171,36,.35);
+
+}
+
+.login-card button:active{
+
+    transform:scale(.98);
+
+}
+
+@media(max-width:600px){
+
+    .login-card{
+
+        padding:25px;
+
+        border-radius:20px;
+
+    }
+
+    .login-card h2{
+
+        font-size:24px;
+
+    }
+
+    .login-icon{
+
+        width:70px;
+        height:70px;
+
+        font-size:32px;
+
+    }
+
+}
