@@ -4,53 +4,85 @@
 <head>
 
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>ARCHITIES Dashboard</title>
+<title>
+ARCHITIES Dashboard
+</title>
 
 <link rel="stylesheet" href="style.css">
 
 </head>
 
+
 <body>
+
 
 <div class="container">
 
+
 <header>
 
-<h1>ARCHITIES 2026</h1>
+<h1>
+ARCHITIES 2026
+</h1>
 
-<p>DASHBOARD PANITIA</p>
+<p>
+DASHBOARD PANITIA
+</p>
 
 </header>
 
+
+
 <div class="info">
 
-<div>
-
-<h3>Total</h3>
-
-<span id="total">0</span>
-
-</div>
 
 <div>
 
-<h3>Hadir</h3>
+<h3>
+Total
+</h3>
 
-<span id="hadir">0</span>
+<span id="total">
+0
+</span>
 
 </div>
+
+
 
 <div>
 
-<h3>Belum</h3>
+<h3>
+Hadir
+</h3>
 
-<span id="belum">0</span>
+<span id="hadir">
+0
+</span>
 
 </div>
 
+
+
+<div>
+
+<h3>
+Belum
+</h3>
+
+<span id="belum">
+0
+</span>
+
 </div>
+
+
+</div>
+
+
 
 <div class="progress">
 
@@ -58,92 +90,144 @@
 
 </div>
 
-<p id="persen">0%</p>
 
-<!-- =========================
-     DAFTAR PESERTA HADIR
-========================= -->
+<p id="persen">
+0%
+</p>
+
+
+
+
 
 <div class="dashboard-grid">
 
-    <!-- ==========================
-         DAFTAR PESERTA
-    ========================== -->
 
-    <div class="attendance-card">
 
-        <div class="attendance-header">
+<div class="attendance-card">
 
-            <h2>👥 Peserta Hadir</h2>
 
-            <input
-                type="text"
-                id="search"
-                placeholder="Cari nama atau ID..."
-            >
+<div class="attendance-header">
 
-        </div>
 
-        <table>
+<h2>
+👥 Peserta Hadir
+</h2>
 
-            <thead>
 
-                <tr>
 
-                    <th>No</th>
-                    <th>ID</th>
-                    <th>Nama</th>
-                    <th>Check In</th>
+<input
 
-                </tr>
+type="text"
 
-            </thead>
+id="search"
 
-            <tbody id="attendanceBody">
+placeholder="Cari nama atau ID..."
 
-                <tr>
+>
 
-                    <td colspan="4">
-                        Belum ada peserta hadir
-                    </td>
-
-                </tr>
-
-            </tbody>
-
-        </table>
-
-    </div>
-
-    <!-- ==========================
-         LIVE ACTIVITY
-    ========================== -->
-
-    <div class="activity-card">
-
-        <h2>🟢 Aktivitas Terbaru</h2>
-
-        <div id="activityFeed">
-
-            <div class="activity-empty">
-
-                Belum ada aktivitas
-
-            </div>
-
-        </div>
-
-    </div>
 
 </div>
 
-<!-- Toast Notification -->
+
+
+
+<div class="table-wrapper">
+
+
+<table>
+
+
+<thead>
+
+<tr>
+
+<th>No</th>
+
+<th>ID</th>
+
+<th>Nama</th>
+
+<th>Check In</th>
+
+
+</tr>
+
+</thead>
+
+
+
+<tbody id="attendanceBody">
+
+
+<tr>
+
+<td colspan="4">
+
+Belum ada peserta hadir
+
+</td>
+
+</tr>
+
+
+</tbody>
+
+
+
+</table>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div class="activity-card">
+
+
+<h2>
+🟢 Aktivitas Terbaru
+</h2>
+
+
+
+<div id="activityFeed">
+
+
+<div class="activity-empty">
+
+Belum ada aktivitas
+
+</div>
+
+
+</div>
+
+
+
+</div>
+
+
+
+</div>
+
+
+
+
 
 <div id="toast"></div>
 
+
 </div>
 
+
+
 <script src="dashboard.js"></script>
+
 
 </body>
 
