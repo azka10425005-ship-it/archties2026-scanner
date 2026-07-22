@@ -1145,10 +1145,24 @@ SCANNER CARD
 
     cursor:pointer;
 
-    transition:.25s;
+    transition:
+        background .25s,
+        transform .2s;
 
 }
 
+#flash.flash-on{
+
+    background:
+    linear-gradient(
+        135deg,
+        #FFD54F,
+        #F5AB24
+    );
+
+    color:#222;
+
+}
 
 #flash:hover{
 
