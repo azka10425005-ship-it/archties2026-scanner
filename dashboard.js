@@ -149,14 +149,24 @@ return (
 
 peserta.sort((a,b)=>{
 
+    const parse = (str)=>{
 
-return new Date(b.waktu)
--
-new Date(a.waktu);
+        const [tgl,jam] = str.split(" ");
 
+        const [d,m,y] = tgl.split("/");
+
+        return new Date(
+            y,
+            m-1,
+            d,
+            ...jam.split(":")
+        );
+
+    };
+
+    return parse(b.waktu) - parse(a.waktu);
 
 });
-
 
 
 
@@ -307,40 +317,32 @@ err
 
 function formatTanggalJam(waktu){
 
+    if(!waktu){
+        return "-";
+    }
 
-if(!waktu){
+    // Pisahkan tanggal dan jam
+    const [tanggal, jam] = waktu.split(" ");
 
-return "-";
+    // Pisahkan tanggal
+    const [hari, bulan, tahun] = tanggal.split("/");
 
-}
+    // Buat objek Date dengan format yang benar
+    const date = new Date(
+        tahun,
+        bulan - 1,
+        hari
+    );
 
+    return `
+        <div class="tanggal">
+            ${date.toLocaleDateString("id-ID")}
+        </div>
 
-
-const date =
-new Date(waktu);
-
-
-
-return `
-
-
-<div class="tanggal">
-
-${date.toLocaleDateString("id-ID")}
-
-</div>
-
-
-<div class="jam">
-
-${date.toLocaleTimeString("id-ID")}
-
-</div>
-
-
-`;
-
-
+        <div class="jam">
+            ${jam}
+        </div>
+    `;
 }
 
 
