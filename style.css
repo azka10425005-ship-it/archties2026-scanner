@@ -783,7 +783,12 @@ padding:15px;
 
 }
 
+#reader{
 
+    height:240px;
+
+}
+    
 header h1{
 
 font-size:28px;
@@ -825,16 +830,21 @@ SCANNER CARD
 
     width:100% !important;
 
-    aspect-ratio:1/1;
+    max-width:460px;
+
+    height:320px;
+
+    margin:auto;
 
     overflow:hidden;
 
-    border-radius:20px;
+    border-radius:18px;
 
     background:#111;
 
-}
+    border:2px solid rgba(255,255,255,.08);
 
+}
 
 
 /* VIDEO CAMERA */
@@ -1006,7 +1016,11 @@ SCANNER CARD
 
 }
 
+#reader{
 
+    height:280px;
+
+}
 
 .scanner-info{
 
