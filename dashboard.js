@@ -1,215 +1,522 @@
 const API_URL =
 "https://script.google.com/macros/s/AKfycbxlI804_LOtx0DBdYUuVa06jZ0yQXPbRHdGoPrUSodhIgrTq9Hch6D7lVHeW4grv1GZ/exec";
 
-let lastToastId = "";
+
 let lastAttendanceIds = [];
+
 let firstLoad = true;
+
+let toastTimeout;
+
+
 
 async function loadDashboard(){
 
-    try{
-        
-    const res = await fetch(
-        API_URL + "?action=dashboard"
-    );
 
-    const data = await res.json();
+try{
 
-    document.getElementById("total").innerHTML =
-        data.total;
 
-    document.getElementById("hadir").innerHTML =
-        data.hadir;
+const res = await fetch(
+API_URL + "?action=dashboard"
+);
 
-    document.getElementById("belum").innerHTML =
-        data.belum;
 
-    const persen =
-        data.total > 0
-        ? Math.round(data.hadir * 100 / data.total)
-        : 0;
+const data = await res.json();
 
-    document.getElementById("persen").innerHTML =
-        persen + "%";
 
-    document.getElementById("progressBar").style.width =
-        persen + "%";
 
-}catch(err){
+document.getElementById("total").textContent =
+data.total;
 
-    console.error("Dashboard Error:", err);
-    }
+
+
+document.getElementById("hadir").textContent =
+data.hadir;
+
+
+
+document.getElementById("belum").textContent =
+data.belum;
+
+
+
+const persen =
+data.total > 0
+?
+Math.round(
+data.hadir * 100 / data.total
+)
+:
+0;
+
+
+
+document.getElementById("persen").textContent =
+persen+"%";
+
+
+
+document.getElementById("progressBar")
+.style.width =
+persen+"%";
+
+
+
 }
+
+catch(err){
+
+console.error(
+"Dashboard Error:",
+err
+);
+
+}
+
+
+}
+
+
+
+
+
+
 async function loadAttendance(){
 
-    try{
 
-        const res = await fetch(
-            API_URL + "?action=attendance"
-        );
+try{
 
-        const data = await res.json();
 
-        const tbody =
-            document.getElementById("attendanceBody");
+const res = await fetch(
+API_URL+"?action=attendance"
+);
 
-        const search = document.getElementById("search");
 
-        const keyword = search
-            ? search.value.toLowerCase()
-            : "";
 
-        tbody.innerHTML = "";
+const data = await res.json();
 
-        let hasil = data.filter(p =>
 
-            (p.nama || "").toLowerCase().includes(keyword) ||
 
-            (p.id || "").toLowerCase().includes(keyword)
+const tbody =
+document.getElementById(
+"attendanceBody"
+);
 
-        );
 
-        if(hasil.length == 0){
 
-            tbody.innerHTML = `
-                <tr>
-                    <td colspan="4">
-                        Tidak ada peserta ditemukan
-                    </td>
-                </tr>
-            `;
-            
-            return;
-        }
+const search =
+document.getElementById(
+"search"
+);
 
-        hasil = [...hasil].reverse();
 
-        updateActivityFeed([...data].reverse());
-        
-        hasil.forEach((p,index)=>{
 
-    const isNew =
-        !firstLoad &&
-        !lastAttendanceIds.includes(p.id);
-            
-    tbody.innerHTML += `
-        <tr
-            data-id="${p.id}"
-            class="${isNew ? "new-row" : ""}">
+const keyword =
+search
+?
+search.value.toLowerCase()
+:
+"";
 
-            <td>${index+1}</td>
 
-            <td>${p.id}</td>
 
-            <td>${p.nama}</td>
 
-            <td>${formatTanggalJam(p.waktu)}</td>
+let peserta =
+data.filter(p=>{
 
-        </tr>
-    `;
 
-    if(
-    isNew &&
-    lastAttendanceIds.length > 0 &&
-    lastToastId !== p.id
-){
-        
-    lastToastId = p.id;
+return (
 
-    showToast(p.nama,p.waktu);
+(p.nama || "")
+.toLowerCase()
+.includes(keyword)
 
-}
+
+||
+
+(p.id || "")
+.toLowerCase()
+.includes(keyword)
+
+);
+
 
 });
-    
-    lastAttendanceIds = data.map(p => p.id);
-        firstLoad=false;
 
-    }catch(err){
 
-        console.error(err);
 
-    }
+
+
+
+peserta.sort((a,b)=>{
+
+
+return new Date(b.waktu)
+-
+new Date(a.waktu);
+
+
+});
+
+
+
+
+
+tbody.innerHTML="";
+
+
+
+
+
+if(peserta.length===0){
+
+
+tbody.innerHTML=`
+
+<tr>
+
+<td colspan="4">
+
+Tidak ada peserta ditemukan
+
+</td>
+
+</tr>
+
+`;
+
+
+return;
+
 
 }
+
+
+
+
+
+peserta.forEach((p,index)=>{
+
+
+const isNew =
+
+!firstLoad &&
+
+!lastAttendanceIds.includes(p.id);
+
+
+
+
+
+tbody.innerHTML += `
+
+
+<tr class="${isNew ? "new-row":""}">
+
+
+<td>
+${index+1}
+</td>
+
+
+<td>
+${p.id}
+</td>
+
+
+<td>
+${p.nama}
+</td>
+
+
+<td>
+
+${formatTanggalJam(p.waktu)}
+
+</td>
+
+
+</tr>
+
+
+`;
+
+
+
+
+
+if(isNew){
+
+
+showToast(
+p.nama,
+p.waktu
+);
+
+
+}
+
+
+});
+
+
+
+
+
+
+lastAttendanceIds =
+data.map(
+p=>p.id
+);
+
+
+
+firstLoad=false;
+
+
+
+updateActivityFeed(
+peserta
+);
+
+
+
+}
+
+
+
+catch(err){
+
+console.error(
+"Attendance Error:",
+err
+);
+
+}
+
+
+
+}
+
+
+
+
+
+
+
+
 
 function formatTanggalJam(waktu){
 
-    if(!waktu){
-        return "-";
-    }
 
-    const bagian = waktu.split(" ");
+if(!waktu){
 
-    return `
-        <div class="tanggal">${bagian[0]}</div>
-        <div class="jam">${bagian[1] || ""}</div>
-    `;
+return "-";
 
 }
 
-function showToast(nama,waktu){
 
-    const toast = document.getElementById("toast");
 
-    toast.innerHTML = `
-        <strong>✅ Check-in Berhasil</strong><br>
-        ${nama}<br>
-        <small>${waktu}</small>
-    `;
+const date =
+new Date(waktu);
 
-    toast.classList.add("show");
 
-    setTimeout(()=>{
 
-        toast.classList.remove("show");
+return `
 
-    },3000);
+
+<div class="tanggal">
+
+${date.toLocaleDateString("id-ID")}
+
+</div>
+
+
+<div class="jam">
+
+${date.toLocaleTimeString("id-ID")}
+
+</div>
+
+
+`;
+
 
 }
+
+
+
+
+
+
+
+
 
 function updateActivityFeed(data){
 
-    const feed = document.getElementById("activityFeed");
 
-    feed.innerHTML = "";
 
-    const terbaru = data.slice(0,5);
-    
-    terbaru.forEach(p=>{
+const feed =
+document.getElementById(
+"activityFeed"
+);
 
-        feed.innerHTML += `
-            <div class="activity-item">
 
-                <div class="activity-name">
 
-                    🟢 ${p.nama}
+feed.innerHTML="";
 
-                </div>
 
-                <div class="activity-time">
 
-                    ${p.waktu}
+data
+.slice(0,5)
+.forEach(p=>{
 
-                </div>
 
-            </div>
-        `;
+feed.innerHTML += `
 
-    });
+
+<div class="activity-item">
+
+
+<div class="activity-name">
+
+🟢 ${p.nama}
+
+</div>
+
+
+
+<div class="activity-time">
+
+${formatTanggalJam(p.waktu)}
+
+</div>
+
+
+</div>
+
+
+`;
+
+
+});
+
 
 }
 
+
+
+
+
+
+
+
+
+function showToast(nama,waktu){
+
+
+
+const toast =
+document.getElementById(
+"toast"
+);
+
+
+
+toast.innerHTML=`
+
+
+<strong>
+✅ Check-in Berhasil
+</strong>
+
+<br>
+
+${nama}
+
+<br>
+
+<small>
+${waktu}
+</small>
+
+
+`;
+
+
+
+toast.classList.add(
+"show"
+);
+
+
+
+clearTimeout(
+toastTimeout
+);
+
+
+
+toastTimeout=setTimeout(()=>{
+
+
+toast.classList.remove(
+"show"
+);
+
+
+},3000);
+
+
+
+}
+
+
+
+
+
+
+
+
 loadDashboard();
+
 loadAttendance();
 
-setInterval(()=>{
 
-    loadDashboard();
-    loadAttendance();
 
-},5000);
 
-document
-.getElementById("search")
-.addEventListener("input",loadAttendance);
+
+setInterval(
+loadDashboard,
+10000
+);
+
+
+
+setInterval(
+loadAttendance,
+5000
+);
+
+
+
+
+
+
+const searchInput =
+document.getElementById(
+"search"
+);
+
+
+
+if(searchInput){
+
+
+searchInput.addEventListener(
+"input",
+loadAttendance
+);
+
+
+}
