@@ -3,6 +3,7 @@ const API_URL =
 
 let lastToastId = "";
 let lastAttendanceIds = [];
+let firstLoad = true;
 
 async function loadDashboard(){
 
@@ -60,11 +61,11 @@ async function loadAttendance(){
 
         tbody.innerHTML = "";
 
-        const hasil = data.filter(p =>
+        let hasil = data.filter(p =>
 
-            p.nama.toLowerCase().includes(keyword) ||
+            (p.nama || "").toLowerCase().includes(keyword) ||
 
-            p.id.toLowerCase().includes(keyword)
+            (p.id || "").toLowerCase().includes(keyword)
 
         );
 
@@ -77,18 +78,20 @@ async function loadAttendance(){
                     </td>
                 </tr>
             `;
-
+            
             return;
         }
 
-        hasil.reverse();
+        hasil = [...hasil].reverse();
 
-        updateActivityFeed(hasil);
-
+        updateActivityFeed([...data].reverse());
+        
         hasil.forEach((p,index)=>{
 
-    const isNew = !lastAttendanceIds.includes(p.id);
-
+    const isNew =
+        !firstLoad &&
+        !lastAttendanceIds.includes(p.id);
+            
     tbody.innerHTML += `
         <tr
             data-id="${p.id}"
@@ -105,8 +108,12 @@ async function loadAttendance(){
         </tr>
     `;
 
-    if(isNew && lastAttendanceIds.length > 0 && lastToastId !== p.id){
-
+    if(
+    isNew &&
+    lastAttendanceIds.length > 0 &&
+    lastToastId !== p.id
+){
+        
     lastToastId = p.id;
 
     showToast(p.nama,p.waktu);
@@ -115,7 +122,8 @@ async function loadAttendance(){
 
 });
     
-    lastAttendanceIds = hasil.map(p => p.id);
+    lastAttendanceIds = data.map(p => p.id);
+        firstLoad=false;
 
     }catch(err){
 
@@ -135,7 +143,7 @@ function formatTanggalJam(waktu){
 
     return `
         <div class="tanggal">${bagian[0]}</div>
-        <div class="jam">${bagian[1]}</div>
+        <div class="jam">${bagian[1] || ""}</div>
     `;
 
 }
