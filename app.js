@@ -391,7 +391,6 @@ navigator.vibrate(150);
 else{
 
 
-beepError();
 
 
 status.className=
@@ -401,18 +400,18 @@ status.className=
 
 if(res.type==="duplicate"){
 
-status.innerHTML=
-"⚠️ Peserta Sudah Check-in";
+    beepDuplicate();
 
+    status.innerHTML =
+    "⚠️ Peserta Sudah Check-in";
 
 }
-
 else{
 
+    beepError();
 
-status.innerHTML=
-"❌ QR Code Tidak Terdaftar";
-
+    status.innerHTML =
+    "❌ QR Code Tidak Terdaftar";
 
 }
 
@@ -591,125 +590,100 @@ return audioCtx;
 
 function beepSuccess(){
 
+    const ctx = getAudio();
 
-const ctx=getAudio();
+    if(ctx.state==="suspended") ctx.resume();
 
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
 
-if(ctx.state==="suspended")
-ctx.resume();
+    osc.connect(gain);
+    gain.connect(ctx.destination);
 
+    osc.type = "sine";
 
+    osc.frequency.setValueAtTime(700, ctx.currentTime);
+    osc.frequency.linearRampToValueAtTime(
+        1100,
+        ctx.currentTime + 0.12
+    );
 
-const osc =
-ctx.createOscillator();
+    gain.gain.setValueAtTime(0.3, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(
+        0.0001,
+        ctx.currentTime + 0.18
+    );
 
+    osc.start();
+    osc.stop(ctx.currentTime + 0.18);
 
-const gain =
-ctx.createGain();
-
-
-
-osc.connect(gain);
-
-gain.connect(
-ctx.destination
-);
-
-
-
-osc.frequency.value=900;
-
-osc.type="sine";
-
+}
 
 
-gain.gain.value=.3;
+function beepDuplicate(){
 
+    const ctx = getAudio();
 
+    if(ctx.state==="suspended") ctx.resume();
 
-osc.start();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
 
+    osc.connect(gain);
+    gain.connect(ctx.destination);
 
+    osc.type = "triangle";
 
-gain.gain.exponentialRampToValueAtTime(
+    osc.frequency.setValueAtTime(650, ctx.currentTime);
+    osc.frequency.linearRampToValueAtTime(
+        420,
+        ctx.currentTime + 0.15
+    );
 
-0.00001,
+    gain.gain.setValueAtTime(.25, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(
+        0.0001,
+        ctx.currentTime + .18
+    );
 
-ctx.currentTime+.15
-
-);
-
-
-
-osc.stop(
-ctx.currentTime+.15
-);
-
+    osc.start();
+    osc.stop(ctx.currentTime+.18);
 
 }
 
 
 
-
-
-
-
 function beepError(){
 
+    const ctx = getAudio();
 
-const ctx=getAudio();
+    if(ctx.state==="suspended") ctx.resume();
 
+    [300,220].forEach((freq,i)=>{
 
-if(ctx.state==="suspended")
-ctx.resume();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
 
+        osc.connect(gain);
+        gain.connect(ctx.destination);
 
+        osc.type="square";
 
-const osc =
-ctx.createOscillator();
+        osc.frequency.value=freq;
 
+        const start =
+        ctx.currentTime + i*0.18;
 
-const gain =
-ctx.createGain();
+        gain.gain.setValueAtTime(.28,start);
 
+        gain.gain.exponentialRampToValueAtTime(
+            .0001,
+            start+.12
+        );
 
+        osc.start(start);
+        osc.stop(start+.12);
 
-osc.connect(gain);
-
-gain.connect(
-ctx.destination
-);
-
-
-
-osc.frequency.value=250;
-
-osc.type="square";
-
-
-
-gain.gain.value=.3;
-
-
-
-osc.start();
-
-
-
-gain.gain.exponentialRampToValueAtTime(
-
-0.00001,
-
-ctx.currentTime+.3
-
-);
-
-
-
-osc.stop(
-ctx.currentTime+.3
-);
-
-
+    });
 
 }
