@@ -22,7 +22,6 @@ API_URL + "?action=dashboard"
 
 
 const data = await res.json();
-console.log(data);
 
 
 document.getElementById("total").textContent =
@@ -94,7 +93,7 @@ API_URL+"?action=attendance"
 
 
 const data = await res.json();
-
+console.log("ATTENDANCE =", data);
 
 
 const tbody =
