@@ -861,6 +861,9 @@ SCANNER CARD
 
     backdrop-filter:blur(10px);
 
+    opacity:0;
+    transform:scale(.96);
+
 }
 
 #scannerBox:hover{
@@ -1803,5 +1806,33 @@ LOGIN ANIMATION
     opacity:.9;
 
     transform:none;
+
+}
+
+/* =========================
+SHOW SCANNER
+========================= */
+
+.show-scanner{
+
+    animation:showScanner .45s ease forwards;
+
+}
+
+@keyframes showScanner{
+
+    from{
+
+        opacity:0;
+        transform:scale(.96);
+
+    }
+
+    to{
+
+        opacity:1;
+        transform:scale(1);
+
+    }
 
 }
