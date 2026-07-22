@@ -858,7 +858,7 @@ SCANNER CARD
     position:relative;
 
     z-index:1;
-    
+
     width:100% !important;
 
     max-width:460px;
@@ -873,10 +873,13 @@ SCANNER CARD
 
     background:#111;
 
-    border:2px solid rgba(255,255,255,.08);
+    border:2px solid rgba(245,171,36,.20);
+
+    box-shadow:
+        inset 0 0 20px rgba(245,171,36,.08),
+        0 0 20px rgba(0,0,0,.30);
 
 }
-
 #reader{
 
     position:relative;
@@ -1325,6 +1328,87 @@ SCANNER FRAME
     100%{
 
         top:calc(100% - 25px);
+
+    }
+
+}
+
+/* =========================
+SCANNER OVERLAY
+========================= */
+
+#reader::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    border-radius:18px;
+
+    pointer-events:none;
+
+    z-index:20;
+
+    background:
+
+    linear-gradient(#F5AB24,#F5AB24) left 15px top 15px / 35px 4px no-repeat,
+    linear-gradient(#F5AB24,#F5AB24) left 15px top 15px / 4px 35px no-repeat,
+
+    linear-gradient(#F5AB24,#F5AB24) right 15px top 15px / 35px 4px no-repeat,
+    linear-gradient(#F5AB24,#F5AB24) right 15px top 15px / 4px 35px no-repeat,
+
+    linear-gradient(#F5AB24,#F5AB24) left 15px bottom 15px / 35px 4px no-repeat,
+    linear-gradient(#F5AB24,#F5AB24) left 15px bottom 15px / 4px 35px no-repeat,
+
+    linear-gradient(#F5AB24,#F5AB24) right 15px bottom 15px / 35px 4px no-repeat,
+    linear-gradient(#F5AB24,#F5AB24) right 15px bottom 15px / 4px 35px no-repeat;
+
+}
+
+#reader::after{
+
+    content:"";
+
+    position:absolute;
+
+    left:18px;
+
+    right:18px;
+
+    height:3px;
+
+    border-radius:20px;
+
+    background:linear-gradient(
+        90deg,
+        transparent,
+        #F5AB24,
+        transparent
+    );
+
+    box-shadow:0 0 12px #F5AB24;
+
+    animation:scannerLine 2.2s linear infinite;
+
+    pointer-events:none;
+
+    z-index:21;
+
+}
+
+@keyframes scannerLine{
+
+    0%{
+
+        top:20px;
+
+    }
+
+    100%{
+
+        top:calc(100% - 20px);
 
     }
 
