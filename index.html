@@ -79,11 +79,23 @@ LOGIN PANITIA
             Scanner ARCHITIES 2026
         </p>
 
-        <input
-            id="pin"
-            type="password"
-            placeholder="Masukkan PIN"
-            autocomplete="off">
+        <div class="pin-wrapper">
+
+    <input
+        id="pin"
+        type="password"
+        placeholder="Masukkan PIN"
+        autocomplete="off">
+
+    <span
+        id="togglePin"
+        onclick="togglePin()">
+
+        👁️
+
+    </span>
+
+</div>
 
         <button onclick="login()">
 
