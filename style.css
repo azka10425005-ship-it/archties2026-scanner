@@ -908,11 +908,49 @@ SCANNER CARD
 
 .waiting{
 
-    background:#303030;
+    background:linear-gradient(
+        135deg,
+        #223A70,
+        #34579B
+    );
 
-    color:#dcdcdc;
+    color:#fff;
 
-    border:1px solid rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.15);
+
+    box-shadow:
+        0 8px 20px rgba(34,58,112,.35);
+
+}
+
+.waiting{
+
+    animation:waitingPulse 2s infinite;
+
+}
+
+@keyframes waitingPulse{
+
+    0%{
+
+        box-shadow:
+        0 0 0 rgba(34,58,112,.25);
+
+    }
+
+    50%{
+
+        box-shadow:
+        0 0 18px rgba(34,58,112,.55);
+
+    }
+
+    100%{
+
+        box-shadow:
+        0 0 0 rgba(34,58,112,.25);
+
+    }
 
 }
 
