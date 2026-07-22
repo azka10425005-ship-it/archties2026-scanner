@@ -25,7 +25,8 @@ let flashAktif = false;
 
 let audioCtx;
 
-
+let lastHadir = 0;
+let lastTotal = 0;
 
 
 
@@ -465,17 +466,39 @@ await res.json();
 
 
 
-document.getElementById(
-"scannerHadir"
-).innerHTML=
-data.hadir;
+const hadirEl =
+document.getElementById("scannerHadir");
 
+const totalEl =
+document.getElementById("scannerTotal");
 
+if(data.hadir != lastHadir){
 
-document.getElementById(
-"scannerTotal"
-).innerHTML=
-data.total;
+    hadirEl.classList.remove("count-pop");
+
+    void hadirEl.offsetWidth;
+
+    hadirEl.classList.add("count-pop");
+
+}
+
+if(data.total != lastTotal){
+
+    totalEl.classList.remove("count-pop");
+
+    void totalEl.offsetWidth;
+
+    totalEl.classList.add("count-pop");
+
+}
+
+hadirEl.innerHTML = data.hadir;
+
+totalEl.innerHTML = data.total;
+
+lastHadir = data.hadir;
+
+lastTotal = data.total;
 
 
 
