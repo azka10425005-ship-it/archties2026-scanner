@@ -867,17 +867,29 @@ SCANNER CARD
 
 #status{
 
-    margin-top:20px;
+    margin-top:18px;
 
-    padding:18px;
+    min-height:72px;
 
-    border-radius:15px;
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
 
     text-align:center;
 
+    padding:18px;
+
+    border-radius:16px;
+
     font-size:20px;
 
-    font-weight:bold;
+    font-weight:700;
+
+    transition:.3s;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.25);
 
 }
 
@@ -887,31 +899,61 @@ SCANNER CARD
 
 .waiting{
 
-    background:#333;
+    background:#303030;
 
-    color:#ddd;
+    color:#dcdcdc;
+
+    border:1px solid rgba(255,255,255,.08);
 
 }
 
 
 .success{
 
-    background:#1b5e20;
+    background:linear-gradient(135deg,#1B5E20,#2E7D32);
 
     color:white;
 
+    border:1px solid rgba(255,255,255,.1);
 }
 
 
 .error{
 
-    background:#8b0000;
+    background:linear-gradient(135deg,#8B0000,#C62828);
 
     color:white;
 
+    border:1px solid rgba(255,255,255,.1);
+
 }
 
+@keyframes statusPop{
 
+    0%{
+
+        transform:scale(.96);
+
+        opacity:.6;
+
+    }
+
+    100%{
+
+        transform:scale(1);
+
+        opacity:1;
+
+    }
+
+}
+
+.success,
+.error{
+
+    animation:statusPop .25s ease;
+
+}
 
 
 
