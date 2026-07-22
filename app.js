@@ -200,10 +200,12 @@ torch:flashAktif
 if(flashAktif){
 
     btn.innerHTML = "💡 Flash ON";
+    btn.classList.add("flash-on");
 
 }else{
 
     btn.innerHTML = "🔦 Flash OFF";
+    btn.classList.remove("flash-on");
 
 }
 
