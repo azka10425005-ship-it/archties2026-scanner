@@ -1,6 +1,9 @@
 const API_URL =
 "https://script.google.com/macros/s/AKfycbxlI804_LOtx0DBdYUuVa06jZ0yQXPbRHdGoPrUSodhIgrTq9Hch6D7lVHeW4grv1GZ/exec";
 
+let lastToastId = "";
+let lastAttendanceIds = [];
+
 async function loadDashboard(){
 
     try{
@@ -80,23 +83,39 @@ async function loadAttendance(){
 
         hasil.reverse();
 
+        updateActivityFeed(hasil);
+
         hasil.forEach((p,index)=>{
 
-            tbody.innerHTML += `
-                <tr>
+    const isNew = !lastAttendanceIds.includes(p.id);
 
-                    <td>${index+1}</td>
+    tbody.innerHTML += `
+        <tr
+            data-id="${p.id}"
+            class="${isNew ? "new-row" : ""}">
 
-                    <td>${p.id}</td>
+            <td>${index+1}</td>
 
-                    <td>${p.nama}</td>
+            <td>${p.id}</td>
 
-                    <td>${formatTanggalJam(p.waktu)}</td>
+            <td>${p.nama}</td>
 
-                </tr>
-            `;
+            <td>${formatTanggalJam(p.waktu)}</td>
 
-        });
+        </tr>
+    `;
+
+    if(isNew && lastAttendanceIds.length > 0 && lastToastId !== p.id){
+
+    lastToastId = p.id;
+
+    showToast(p.nama,p.waktu);
+
+}
+
+});
+    
+    lastAttendanceIds = hasil.map(p => p.id);
 
     }catch(err){
 
@@ -121,6 +140,58 @@ function formatTanggalJam(waktu){
 
 }
 
+function showToast(nama,waktu){
+
+    const toast = document.getElementById("toast");
+
+    toast.innerHTML = `
+        <strong>✅ Check-in Berhasil</strong><br>
+        ${nama}<br>
+        <small>${waktu}</small>
+    `;
+
+    toast.classList.add("show");
+
+    setTimeout(()=>{
+
+        toast.classList.remove("show");
+
+    },3000);
+
+}
+
+function updateActivityFeed(data){
+
+    const feed = document.getElementById("activityFeed");
+
+    feed.innerHTML = "";
+
+    const terbaru = data.slice(0,5);
+    
+    terbaru.forEach(p=>{
+
+        feed.innerHTML += `
+            <div class="activity-item">
+
+                <div class="activity-name">
+
+                    🟢 ${p.nama}
+
+                </div>
+
+                <div class="activity-time">
+
+                    ${p.waktu}
+
+                </div>
+
+            </div>
+        `;
+
+    });
+
+}
+
 loadDashboard();
 loadAttendance();
 
@@ -129,7 +200,7 @@ setInterval(()=>{
     loadDashboard();
     loadAttendance();
 
-},5000);
+},2000);
 
 document
 .getElementById("search")
