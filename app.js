@@ -391,30 +391,25 @@ navigator.vibrate(150);
 else{
 
 
-
-
-status.className=
-"error pop";
-
-
-
 if(res.type==="duplicate"){
+
+    status.className="duplicate pop";
 
     beepDuplicate();
 
-    status.innerHTML =
+    status.innerHTML=
     "⚠️ Peserta Sudah Check-in";
 
-}
-else{
+}else{
+
+    status.className="error pop";
 
     beepError();
 
-    status.innerHTML =
+    status.innerHTML=
     "❌ QR Code Tidak Terdaftar";
 
 }
-
 
 
 if(navigator.vibrate){
