@@ -613,31 +613,55 @@ top:25px;
 
 right:25px;
 
+min-width:280px;
 
 background:#2E7D32;
 
 color:white;
 
+padding:18px 22px;
 
-padding:15px 20px;
+border-radius:14px;
 
-border-radius:12px;
+line-height:1.6;
 
+font-size:16px;
+
+box-shadow:
+0 10px 30px rgba(0,0,0,.35);
 
 opacity:0;
 
-transform:
-translateY(-20px);
-
+transform:translateY(-20px);
 
 transition:.3s;
 
-
 z-index:9999;
-
 
 }
 
+#toast strong{
+
+display:block;
+
+font-size:18px;
+
+margin-bottom:8px;
+
+}
+
+
+#toast small{
+
+display:block;
+
+margin-top:8px;
+
+font-size:13px;
+
+color:rgba(255,255,255,.8);
+
+}
 
 
 #toast.show{
