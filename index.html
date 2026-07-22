@@ -8,13 +8,17 @@
 <meta name="viewport"
 content="width=device-width, initial-scale=1.0">
 
+
 <title>
 ARCHITIES 2026 Scanner
 </title>
 
 
-<!-- QR Scanner Library -->
+
+<!-- QR SCANNER -->
+
 <script src="https://unpkg.com/html5-qrcode"></script>
+
 
 
 <link rel="stylesheet" href="style.css">
@@ -26,40 +30,65 @@ ARCHITIES 2026 Scanner
 <body>
 
 
+
 <div class="container">
 
 
+
 <header>
+
 
 <h1>
 ARCHITIES 2026
 </h1>
 
+
 <p>
 CHECK-IN SCANNER
 </p>
 
+
 </header>
 
+
+
+
+
+
+<!-- ======================
+LOGIN PANITIA
+====================== -->
 
 
 <div id="loginBox">
 
 
 <h2>
-PIN PANITIA
+🔐 PIN PANITIA
 </h2>
 
 
-<input 
+
+<input
+
 id="pin"
+
 type="password"
-placeholder="Masukkan PIN">
+
+placeholder="Masukkan PIN"
+
+autocomplete="off"
+
+>
+
 
 
 <button onclick="login()">
+
 MASUK
+
 </button>
+
 
 
 </div>
@@ -68,12 +97,26 @@ MASUK
 
 
 
+
+
+
+
+<!-- ======================
+SCANNER
+====================== -->
+
+
 <div id="scannerBox"
 style="display:none;">
 
 
 
+
+
 <div id="reader"></div>
+
+
+
 
 
 
@@ -86,52 +129,121 @@ Menunggu Scan...
 
 
 
-<div class="info">
+
+
+
+
+<div class="info scanner-info">
+
+
+
 
 
 <div>
+
 
 <h3>
 Hadir
 </h3>
 
 
-<span id="hadir">0</span>
-/
-<span id="total">0</span>
+<span id="scannerHadir">
 
+0
 
-</div>
-
-<div class="progress">
-
-    <div id="progressBar"></div>
-
-</div>
-
-<p id="persen">0%</p>
-
-<div>
-
-<h3>
-Scan terakhir
-</h3>
-
-
-<span id="last">
--
 </span>
 
 
 </div>
 
 
+
+
+
+
+<div>
+
+
+<h3>
+Total
+</h3>
+
+
+<span id="scannerTotal">
+
+0
+
+</span>
+
+
 </div>
 
 
 
-<button onclick="aktifkanFlash()"
-id="flash">
+
+
+
+
+<div>
+
+
+<h3>
+Scan Terakhir
+</h3>
+
+
+<span id="scannerLast">
+
+-
+
+</span>
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+<div class="progress">
+
+
+<div id="scannerProgressBar"></div>
+
+
+</div>
+
+
+
+
+
+<p id="scannerPersen">
+
+0%
+
+</p>
+
+
+
+
+
+
+
+<button
+
+onclick="aktifkanFlash()"
+
+id="flash"
+
+>
 
 🔦 Flash
 
@@ -139,10 +251,18 @@ id="flash">
 
 
 
-</div>
+
+
 
 
 </div>
+
+
+
+
+
+</div>
+
 
 
 
@@ -151,6 +271,8 @@ id="flash">
 <script src="app.js"></script>
 
 
+
 </body>
+
 
 </html>
