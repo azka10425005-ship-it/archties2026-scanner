@@ -713,12 +713,31 @@ grid-template-columns:1fr;
 
 .info{
 
+grid-template-columns:repeat(3,1fr);
 
-grid-template-columns:1fr;
-
+gap:8px;
 
 }
 
+.info div{
+
+padding:15px 5px;
+
+}
+
+
+.info h3{
+
+font-size:12px;
+
+}
+
+
+.info span{
+
+font-size:24px;
+
+}
 
 
 header h1{
