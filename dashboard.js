@@ -49,10 +49,11 @@ async function loadAttendance(){
         const tbody =
             document.getElementById("attendanceBody");
 
-        const keyword =
-            document.getElementById("search")
-            .value
-            .toLowerCase();
+        const search = document.getElementById("search");
+
+        const keyword = search
+            ? search.value.toLowerCase()
+            : "";
 
         tbody.innerHTML = "";
 
@@ -90,7 +91,7 @@ async function loadAttendance(){
 
                     <td>${p.nama}</td>
 
-                    <td>${p.waktu}</td>
+                    <td>${formatTanggalJam(p.waktu)}</td>
 
                 </tr>
             `;
@@ -102,6 +103,21 @@ async function loadAttendance(){
         console.error(err);
 
     }
+
+}
+
+function formatTanggalJam(waktu){
+
+    if(!waktu){
+        return "-";
+    }
+
+    const bagian = waktu.split(" ");
+
+    return `
+        <div class="tanggal">${bagian[0]}</div>
+        <div class="jam">${bagian[1]}</div>
+    `;
 
 }
 
