@@ -1484,3 +1484,35 @@ footer p{
     letter-spacing:1px;
 
 }
+
+/* =========================
+COUNT ANIMATION
+========================= */
+
+.count-pop{
+
+    animation:countPop .35s ease;
+
+}
+
+@keyframes countPop{
+
+    0%{
+
+        transform:scale(1);
+
+    }
+
+    50%{
+
+        transform:scale(1.18);
+
+    }
+
+    100%{
+
+        transform:scale(1);
+
+    }
+
+}
