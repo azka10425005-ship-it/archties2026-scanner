@@ -1388,3 +1388,33 @@ SCANNER OVERLAY
     }
 
 }
+
+/* =========================
+STATUS ANIMATION
+========================= */
+
+.pop{
+
+    animation:statusPop .3s ease;
+
+}
+
+@keyframes statusPop{
+
+    0%{
+
+        transform:scale(.94);
+
+        opacity:.7;
+
+    }
+
+    100%{
+
+        transform:scale(1);
+
+        opacity:1;
+
+    }
+
+}
