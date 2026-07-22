@@ -182,10 +182,9 @@ return;
 
 
 
-flashAktif =
-!flashAktif;
+flashAktif = !flashAktif;
 
-
+const btn = document.getElementById("flash");
 
 await html5QrCode
 .applyVideoConstraints({
@@ -198,7 +197,15 @@ torch:flashAktif
 
 });
 
+if(flashAktif){
 
+    btn.innerHTML = "💡 Flash ON";
+
+}else{
+
+    btn.innerHTML = "🔦 Flash OFF";
+
+}
 
 }
 
