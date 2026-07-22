@@ -1041,6 +1041,18 @@ SCANNER CARD
 
 }
 
+.duplicate{
+
+    background:linear-gradient(
+        135deg,
+        #F5AB24,
+        #E58E00
+    );
+
+    color:#111;
+
+}
+
 @keyframes statusPop{
 
     0%{
