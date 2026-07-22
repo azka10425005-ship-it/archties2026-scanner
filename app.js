@@ -255,7 +255,7 @@ document.getElementById("status");
 status.className="waiting";
 
 status.innerHTML=
-"Memeriksa...";
+"⏳ Memverifikasi QR Code...";
 
 
 
@@ -319,7 +319,7 @@ status.className="waiting";
 status.classList.remove("pop");
 
 status.innerHTML=
-"Menunggu Scan...";
+"📷 Arahkan pada QR Code";
 
 
 },2500);
@@ -364,7 +364,7 @@ status.className=
 
 
 status.innerHTML=
-"✅ "+res.nama;
+"✅ Check-in Berhasil<br><small>"+res.nama+"</small>";
 
 
 
@@ -401,7 +401,7 @@ status.className=
 if(res.type==="duplicate"){
 
 status.innerHTML=
-"🔴 Sudah Hadir";
+"⚠️ Peserta Sudah Check-in";
 
 
 }
@@ -410,7 +410,7 @@ else{
 
 
 status.innerHTML=
-"❌ QR Tidak Valid";
+"❌ QR Code Tidak Terdaftar";
 
 
 }
