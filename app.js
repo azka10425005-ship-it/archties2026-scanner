@@ -53,7 +53,6 @@ return;
 }
 
 
-
 document.getElementById("loginBox")
 .style.display="none";
 
@@ -72,7 +71,27 @@ mulaiScanner();
 }
 
 
+function togglePin(){
 
+    const pin =
+    document.getElementById("pin");
+
+    const eye =
+    document.getElementById("togglePin");
+
+    if(pin.type==="password"){
+
+        pin.type="text";
+        eye.innerHTML="🙈";
+
+    }else{
+
+        pin.type="password";
+        eye.innerHTML="👁️";
+
+    }
+
+}
 
 
 
