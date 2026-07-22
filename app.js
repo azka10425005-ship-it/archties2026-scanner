@@ -307,6 +307,7 @@ scanAktif=true;
 
 
 status.className="waiting";
+status.classList.remove("pop");
 
 status.innerHTML=
 "Menunggu Scan...";
@@ -350,7 +351,7 @@ beepSuccess();
 
 
 status.className=
-"success";
+"success pop";
 
 
 status.innerHTML=
@@ -384,7 +385,7 @@ beepError();
 
 
 status.className=
-"error";
+"error pop";
 
 
 
