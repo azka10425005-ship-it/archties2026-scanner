@@ -61,7 +61,11 @@ document.getElementById("scannerBox")
 .style.display="block";
 
 
+setTimeout(()=>{
+
 mulaiScanner();
+
+},500);
 
 
 }
@@ -81,7 +85,6 @@ mulaiScanner();
 
 async function mulaiScanner(){
 
-
 try{
 
 
@@ -90,33 +93,7 @@ new Html5Qrcode("reader");
 
 
 
-const cameras =
-await Html5QrCode.getCameras();
-
-
-
-if(!cameras.length){
-
-alert("Kamera tidak ditemukan");
-
-return;
-
-}
-
-
-
-
-const camera =
-cameras[0].id;
-
-
-
-await html5QrCode.start(
-
-camera,
-
-
-{
+const config = {
 
 fps:10,
 
@@ -125,14 +102,23 @@ width:250,
 height:250
 }
 
+};
+
+
+
+await html5QrCode.start(
+
+{
+facingMode:"environment"
 },
 
+config,
 
 onScanSuccess,
 
+(errorMessage)=>{
 
-()=>{}
-
+}
 
 );
 
@@ -141,28 +127,25 @@ onScanSuccess,
 loadDashboard();
 
 
+
 }
 
 catch(err){
 
-console.error("Scanner Error:", err);
-
-alert(
-"Kamera gagal dibuka\n\n" + err
+console.error(
+"Scanner Error:",
+err
 );
 
-}
+
+alert(
+"Kamera gagal dibuka\n\n"+err.message
+);
 
 
 }
 
-
-
-
-
-
-
-
+}
 
 
 // ===============================
