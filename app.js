@@ -1,277 +1,538 @@
 // ===============================
-// ARCHITIES SCANNER
-// app.js - BAGIAN 1
+// ARCHITIES 2026 SCANNER
+// app.js
 // ===============================
 
-// ===============================
-// KONFIGURASI
-// ===============================
 
 const API_URL =
 "https://script.google.com/macros/s/AKfycbxlI804_LOtx0DBdYUuVa06jZ0yQXPbRHdGoPrUSodhIgrTq9Hch6D7lVHeW4grv1GZ/exec";
 
-const API_KEY = "ARCHITIES2026";
 
-const PIN = "2026ARCH";
+const API_KEY =
+"ARCHITIES2026";
 
-// ===============================
+
+const PIN =
+"2026ARCH";
+
+
 
 let html5QrCode;
+
 let scanAktif = true;
+
 let flashAktif = false;
 
-const audioCtx =
-    new (window.AudioContext || window.webkitAudioContext)();
+let audioCtx;
+
+
+
+
+
 
 // ===============================
 // LOGIN
 // ===============================
 
+
 function login(){
 
-    const pin = document.getElementById("pin").value;
 
-    if(pin !== PIN){
+const pin =
+document.getElementById("pin").value;
 
-        alert("PIN salah");
 
-        return;
 
-    }
+if(pin !== PIN){
 
-    document.getElementById("loginBox").style.display="none";
-    document.getElementById("scannerBox").style.display="block";
+alert("PIN salah");
 
-    mulaiScanner();
+return;
 
 }
 
+
+
+document.getElementById("loginBox")
+.style.display="none";
+
+
+document.getElementById("scannerBox")
+.style.display="block";
+
+
+mulaiScanner();
+
+
+}
+
+
+
+
+
+
+
+
+
 // ===============================
-// MULAI SCANNER
+// START SCANNER
 // ===============================
+
 
 async function mulaiScanner(){
 
-    html5QrCode = new Html5Qrcode("reader");
 
-    try{
+try{
 
-        const cameras = await Html5Qrcode.getCameras();
 
-        if(cameras.length===0){
+html5QrCode =
+new Html5Qrcode("reader");
 
-            alert("Tidak ada kamera.");
 
-            return;
 
-        }
+const cameras =
+await Html5QrCode.getCameras();
 
-        // kamera belakang
-        const camera =
-            cameras[cameras.length-1].id;
 
-        await html5QrCode.start(
 
-            camera,
+if(!cameras.length){
 
-            {
+alert("Kamera tidak ditemukan");
 
-                fps:10,
-
-                qrbox:{
-                    width:250,
-                    height:250
-                }
-
-            },
-
-            onScanSuccess,
-
-            ()=>{}
-
-        );
-
-        loadDashboard();
-
-    }
-
-    catch(err){
-
-        console.log(err);
-
-        alert(err);
-
-    }
+return;
 
 }
+
+
+
+
+const camera =
+cameras[cameras.length-1].id;
+
+
+
+
+await html5QrCode.start(
+
+camera,
+
+
+{
+
+fps:10,
+
+qrbox:{
+width:250,
+height:250
+}
+
+},
+
+
+onScanSuccess,
+
+
+()=>{}
+
+
+);
+
+
+
+loadDashboard();
+
+
+}
+
+catch(err){
+
+console.error(err);
+
+alert(
+"Gagal membuka kamera"
+);
+
+}
+
+
+}
+
+
+
+
+
+
+
+
+
 
 // ===============================
 // FLASH
 // ===============================
 
+
 async function aktifkanFlash(){
 
-    try{
 
-        if(!html5QrCode) return;
+try{
 
-        const track =
-        html5QrCode.getRunningTrack();
 
-        if(!track) return;
+if(!html5QrCode)
+return;
 
-        flashAktif = !flashAktif;
 
-        await track.applyConstraints({
 
-            advanced:[
+const capabilities =
+html5QrCode
+.getRunningTrackCapabilities();
 
-                {
-                    torch:flashAktif
-                }
 
-            ]
 
-        });
+if(!capabilities.torch){
 
-    }
+alert(
+"Flash tidak tersedia"
+);
 
-    catch(err){
-
-        console.log(err);
-
-    }
+return;
 
 }
 
 
 
-// ===============================
-// QR BERHASIL DISCAN
-// ===============================
+flashAktif =
+!flashAktif;
 
-async function onScanSuccess(decodedText) {
 
-    if (!scanAktif) return;
 
-    scanAktif = false;
+await html5QrCode
+.applyVideoConstraints({
 
-    const status = document.getElementById("status");
-    status.className = "waiting";
-    status.innerHTML = "Memeriksa...";
+advanced:[
+{
+torch:flashAktif
+}
+]
 
-    try {
+});
 
-        const response = await fetch(
-            API_URL +
-            "?action=checkin&id=" +
-            encodeURIComponent(decodedText)
-        );
 
-        const res = await response.json();
-
-        tampilkanStatus(res);
-
-        await loadDashboard();
-
-    } catch (err) {
-
-        console.error(err);
-
-        status.className = "error";
-        status.innerHTML = "❌ Gagal terhubung ke server";
-
-    }
-
-    setTimeout(() => {
-
-        scanAktif = true;
-
-        status.className = "waiting";
-        status.innerHTML = "Menunggu Scan...";
-
-    }, 2000);
 
 }
 
+catch(err){
+
+console.log(err);
+
+}
+
+
+}
+
+
+
+
+
+
+
+
+
+
 // ===============================
-// TAMPILKAN STATUS
+// SCAN SUCCESS
 // ===============================
+
+
+async function onScanSuccess(decodedText){
+
+
+
+if(!scanAktif)
+return;
+
+
+
+scanAktif=false;
+
+
+
+const status =
+document.getElementById("status");
+
+
+
+status.className="waiting";
+
+status.innerHTML=
+"Memeriksa...";
+
+
+
+
+
+try{
+
+
+const response =
+await fetch(
+
+API_URL +
+
+"?action=checkin&id=" +
+
+encodeURIComponent(decodedText)
+
+);
+
+
+
+const res =
+await response.json();
+
+
+
+tampilkanStatus(res);
+
+
+
+await loadDashboard();
+
+
+}
+
+catch(err){
+
+
+console.error(err);
+
+
+status.className="error";
+
+status.innerHTML=
+"❌ Server Error";
+
+
+}
+
+
+
+
+
+setTimeout(()=>{
+
+
+scanAktif=true;
+
+
+status.className="waiting";
+
+status.innerHTML=
+"Menunggu Scan...";
+
+
+},2500);
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+// ===============================
+// STATUS
+// ===============================
+
 
 function tampilkanStatus(res){
 
-    const status = document.getElementById("status");
 
-    if(res.success){
-        beepSuccess();
-        status.className = "success";
 
-        status.innerHTML =
-        "✅ " + res.nama;
+const status =
+document.getElementById("status");
 
-        document.getElementById("last").innerHTML =
-        res.nama;
 
-        if(navigator.vibrate){
 
-            navigator.vibrate(150);
+if(res.success){
 
-        }
 
-    }
 
-    else{
-        beepError();
-        status.className = "error";
+beepSuccess();
 
-        if(res.type=="duplicate"){
 
-            status.innerHTML="🔴 Sudah Hadir";
-            
-    }else{
 
-            status.innerHTML="❌ QR Tidak Valid";
+status.className=
+"success";
 
-        }
 
-        if(navigator.vibrate){
+status.innerHTML=
+"✅ "+res.nama;
 
-            navigator.vibrate([100,80,100]);
-            
-        }
 
-    }
+
+document.getElementById(
+"scannerLast"
+).innerHTML=
+res.nama;
+
+
+
+if(navigator.vibrate){
+
+navigator.vibrate(150);
+
 }
+
+
+
+}
+
+
+
+else{
+
+
+beepError();
+
+
+status.className=
+"error";
+
+
+
+if(res.type==="duplicate"){
+
+status.innerHTML=
+"🔴 Sudah Hadir";
+
+
+}
+
+else{
+
+
+status.innerHTML=
+"❌ QR Tidak Valid";
+
+
+}
+
+
+
+if(navigator.vibrate){
+
+navigator.vibrate(
+[100,80,100]
+);
+
+}
+
+
+}
+
+
+}
+
+
+
+
+
+
+
+
+
+
 // ===============================
-// DASHBOARD
+// DASHBOARD MINI
 // ===============================
+
 
 async function loadDashboard(){
 
-    try{
 
-        const res = await fetch(
-            API_URL + "?action=dashboard"
-        );
 
-        const data = await res.json();
+try{
 
-        document.getElementById("hadir").innerHTML = data.hadir;
-        document.getElementById("total").innerHTML = data.total;
 
-        const persen =
-            data.total > 0
-                ? Math.round((data.hadir / data.total) * 100): 0;
+const res =
+await fetch(
+API_URL+"?action=dashboard"
+);
 
-        document.getElementById("progressBar").style.width = persen + "%";
-        document.getElementById("persen").innerHTML = persen + "%";
 
-    }
-    catch(err){
 
-        console.log(err);
+const data =
+await res.json();
 
-    }
+
+
+
+document.getElementById(
+"scannerHadir"
+).innerHTML=
+data.hadir;
+
+
+
+document.getElementById(
+"scannerTotal"
+).innerHTML=
+data.total;
+
+
+
+
+
+const persen =
+data.total>0
+
+?
+
+Math.round(
+data.hadir*100/data.total
+)
+
+:
+
+0;
+
+
+
+
+document.getElementById(
+"scannerProgressBar"
+)
+.style.width=
+persen+"%";
+
+
+
+
+document.getElementById(
+"scannerPersen"
+)
+.innerHTML=
+persen+"%";
+
+
+
+}
+
+
+
+catch(err){
+
+console.log(err);
+
+}
+
+
 
 }
 
@@ -279,68 +540,161 @@ async function loadDashboard(){
 
 
 
+
+
+
+
 // ===============================
-// BEEP
+// SOUND
 // ===============================
+
+
+function getAudio(){
+
+
+if(!audioCtx){
+
+audioCtx =
+new (
+window.AudioContext ||
+window.webkitAudioContext
+)();
+
+}
+
+
+return audioCtx;
+
+
+}
+
+
+
+
+
+
 
 function beepSuccess(){
 
-    if(audioCtx.state === "suspended"){
-        audioCtx.resume();
-    }
 
-    const osc = audioCtx.createOscillator();
-    const gain = audioCtx.createGain();
+const ctx=getAudio();
 
-    osc.connect(gain);
-    gain.connect(audioCtx.destination);
 
-    osc.frequency.value = 900;
-    osc.type = "sine";
+if(ctx.state==="suspended")
+ctx.resume();
 
-    gain.gain.setValueAtTime(
-        0.3,
-        audioCtx.currentTime
-    );
 
-    osc.start();
 
-    gain.gain.exponentialRampToValueAtTime(
-        0.00001,
-        audioCtx.currentTime + 0.15
-    );
+const osc =
+ctx.createOscillator();
 
-    osc.stop(audioCtx.currentTime + 0.15);
+
+const gain =
+ctx.createGain();
+
+
+
+osc.connect(gain);
+
+gain.connect(
+ctx.destination
+);
+
+
+
+osc.frequency.value=900;
+
+osc.type="sine";
+
+
+
+gain.gain.value=.3;
+
+
+
+osc.start();
+
+
+
+gain.gain.exponentialRampToValueAtTime(
+
+0.00001,
+
+ctx.currentTime+.15
+
+);
+
+
+
+osc.stop(
+ctx.currentTime+.15
+);
+
 
 }
 
+
+
+
+
+
+
 function beepError(){
 
-    if(audioCtx.state === "suspended"){
-        audioCtx.resume();
-    }
 
-    const osc = audioCtx.createOscillator();
-    const gain = audioCtx.createGain();
+const ctx=getAudio();
 
-    osc.connect(gain);
-    gain.connect(audioCtx.destination);
 
-    osc.frequency.value = 250;
-    osc.type = "square";
+if(ctx.state==="suspended")
+ctx.resume();
 
-    gain.gain.setValueAtTime(
-        0.3,
-        audioCtx.currentTime
-    );
 
-    osc.start();
 
-    gain.gain.exponentialRampToValueAtTime(
-        0.00001,
-        audioCtx.currentTime + 0.30
-    );
+const osc =
+ctx.createOscillator();
 
-    osc.stop(audioCtx.currentTime + 0.30);
+
+const gain =
+ctx.createGain();
+
+
+
+osc.connect(gain);
+
+gain.connect(
+ctx.destination
+);
+
+
+
+osc.frequency.value=250;
+
+osc.type="square";
+
+
+
+gain.gain.value=.3;
+
+
+
+osc.start();
+
+
+
+gain.gain.exponentialRampToValueAtTime(
+
+0.00001,
+
+ctx.currentTime+.3
+
+);
+
+
+
+osc.stop(
+ctx.currentTime+.3
+);
+
+
 
 }
