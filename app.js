@@ -366,7 +366,7 @@ status.innerHTML=
 "📷 Arahkan pada QR Code";
 
 
-},2500);
+},3500);
 
 
 
