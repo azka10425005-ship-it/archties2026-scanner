@@ -1448,3 +1448,27 @@ STATUS ANIMATION
     }
 
 }
+
+/* =========================
+FOOTER
+========================= */
+
+footer{
+
+    margin:40px 0 20px;
+
+    text-align:center;
+
+}
+
+footer p{
+
+    margin:0;
+
+    font-size:13px;
+
+    color:#888;
+
+    letter-spacing:1px;
+
+}
