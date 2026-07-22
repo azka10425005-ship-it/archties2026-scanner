@@ -53,19 +53,39 @@ return;
 }
 
 
-document.getElementById("loginBox")
-.style.display="none";
+const btn =
+document.querySelector(".login-card button");
 
+btn.disabled = true;
 
-document.getElementById("scannerBox")
-.style.display="block";
-
+btn.innerHTML =
+"⏳ Memverifikasi PIN...";
 
 setTimeout(()=>{
 
-mulaiScanner();
+    btn.innerHTML =
+    "✅ Login Berhasil";
 
-},500);
+    setTimeout(()=>{
+
+        document.getElementById("loginBox")
+        .classList.add("hide-login");
+
+        setTimeout(()=>{
+
+            document.getElementById("loginBox")
+            .style.display="none";
+
+            document.getElementById("scannerBox")
+            .style.display="block";
+
+            mulaiScanner();
+
+        },500);
+
+    },500);
+
+},700);
 
 
 }
