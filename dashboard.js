@@ -22,7 +22,7 @@ API_URL + "?action=dashboard"
 
 
 const data = await res.json();
-
+console.log(data);
 
 
 document.getElementById("total").textContent =
