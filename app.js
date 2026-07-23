@@ -408,16 +408,7 @@ status.className=
 
 
 status.innerHTML=
-`
-<span class="status-title">
-✅ Check-in Berhasil
-</span>
-
-<span class="status-name">
-${res.nama}
-</span>
-`;
-
+"✅ Check-in Berhasil";
 
 document.getElementById(
 "scannerLast"
