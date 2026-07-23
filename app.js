@@ -28,7 +28,36 @@ let audioCtx;
 let lastHadir = 0;
 let lastTotal = 0;
 
+// ===============================
+// CHECK LOGIN SESSION
+// ===============================
 
+window.onload = function(){
+
+    const loginStatus =
+    localStorage.getItem("architiesLogin");
+
+
+    if(loginStatus === "true"){
+
+        document.getElementById("loginBox")
+        .style.display="none";
+
+
+        const scanner =
+        document.getElementById("scannerBox");
+
+
+        scanner.style.display="block";
+
+        scanner.classList.add("show-scanner");
+
+
+        mulaiScanner();
+
+    }
+
+};
 
 
 // ===============================
@@ -52,6 +81,10 @@ return;
 
 }
 
+localStorage.setItem(
+"architiesLogin",
+"true"
+);
 
 const btn =
 document.querySelector(".login-card button");
@@ -721,5 +754,16 @@ function beepError(){
         osc.stop(start+.12);
 
     });
+
+}
+
+function logout(){
+
+localStorage.removeItem(
+"architiesLogin"
+);
+
+
+location.reload();
 
 }
