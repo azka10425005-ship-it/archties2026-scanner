@@ -408,8 +408,15 @@ status.className=
 
 
 status.innerHTML=
-"✅ Check-in Berhasil<br><small>"+res.nama+"</small>";
+`
+<span class="status-title">
+✅ Check-in Berhasil
+</span>
 
+<span class="status-name">
+${res.nama}
+</span>
+`;
 
 
 document.getElementById(
