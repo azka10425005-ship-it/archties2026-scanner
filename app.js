@@ -598,11 +598,19 @@ persen+"%";
 
 
 document.getElementById(
-"scannerPersen"
+"scannerProgressBar"
 )
-.innerHTML=
+.style.width=
 persen+"%";
 
+console.log(
+"HADIR:",
+data.hadir,
+"TOTAL:",
+data.total,
+"PERSEN:",
+persen
+);
 
 
 }
