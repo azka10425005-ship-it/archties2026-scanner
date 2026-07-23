@@ -1918,3 +1918,43 @@ SHOW SCANNER
     line-height:1.4;
 
 }
+
+#logout{
+
+    width:100%;
+
+    margin-top:12px;
+
+    padding:14px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:#333;
+
+    color:white;
+
+    font-size:17px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:.2s;
+
+}
+
+
+#logout:hover{
+
+    background:#444;
+
+}
+
+
+#logout:active{
+
+    transform:scale(.98);
+
+}
