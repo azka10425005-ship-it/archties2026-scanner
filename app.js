@@ -203,7 +203,7 @@ onScanSuccess,
 
 loadDashboard();
 
-
+setInterval(loadDashboard,5000);
 
 }
 
