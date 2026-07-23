@@ -1897,3 +1897,24 @@ SHOW SCANNER
     line-height:1.4;
 
 }
+
+.status-title{
+
+    display:block;
+
+}
+
+
+.status-name{
+
+    display:block;
+
+    margin-top:12px;
+
+    font-size:22px;
+
+    font-weight:700;
+
+    line-height:1.4;
+
+}
