@@ -594,15 +594,12 @@ document.getElementById(
 .style.width=
 persen+"%";
 
-
-
-
 document.getElementById(
-"scannerProgressBar"
+"scannerPersen"
 )
-.style.width=
+.innerHTML =
 persen+"%";
-
+    
 console.log(
 "HADIR:",
 data.hadir,
