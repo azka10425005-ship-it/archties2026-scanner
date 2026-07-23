@@ -24,7 +24,7 @@ let scanAktif = true;
 let flashAktif = false;
 
 let audioCtx;
-
+let dashboardInterval = null;
 let lastHadir = 0;
 let lastTotal = 0;
 
@@ -35,23 +35,19 @@ let lastTotal = 0;
 window.onload = function(){
 
     const loginStatus =
-    localStorage.getItem("architiesLogin");
-
+    sessionStorage.getItem("architiesLogin");
 
     if(loginStatus === "true"){
 
         document.getElementById("loginBox")
         .style.display="none";
 
-
         const scanner =
         document.getElementById("scannerBox");
-
 
         scanner.style.display="block";
 
         scanner.classList.add("show-scanner");
-
 
         mulaiScanner();
 
@@ -81,7 +77,7 @@ return;
 
 }
 
-localStorage.setItem(
+sessionStorage.setItem(
 "architiesLogin",
 "true"
 );
@@ -203,11 +199,11 @@ onScanSuccess,
 
 loadDashboard();
 
-setInterval(loadDashboard,5000);
-
+if (!dashboardInterval) {
+    dashboardInterval = setInterval(loadDashboard, 5000);
 }
 
-catch(err){
+}catch(err){
 
 console.error(
 "Scanner Error:",
@@ -762,13 +758,37 @@ function beepError(){
 
 }
 
+// ===============================
+// LOGOUT
+// ===============================
+
 function logout(){
 
-localStorage.removeItem(
-"architiesLogin"
-);
+    sessionStorage.removeItem("architiesLogin");
 
+    if (dashboardInterval) {
+        clearInterval(dashboardInterval);
+        dashboardInterval = null;
+    }
 
-location.reload();
+    if (html5QrCode) {
+        html5QrCode.stop().catch(() => {});
+    }
+
+    location.reload();
 
 }
+
+
+
+window.addEventListener("pagehide", async () => {
+
+    sessionStorage.removeItem("architiesLogin");
+
+    if (html5QrCode) {
+        try {
+            await html5QrCode.stop();
+        } catch (e) {}
+    }
+
+});
